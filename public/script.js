@@ -1,6 +1,7 @@
 let verbs = [];
 let current = 0;
 let score = 20;
+let currentVerb = null;
 
 async function fetchVerbs() {
   const res = await fetch("/api/verbs");
@@ -25,9 +26,9 @@ function showQuestion() {
     document.getElementById("question").innerText = "Aucun verbe à afficher.";
     return;
   }
-  const v = verbs[current];
+  currentVerb = verbs[current];
   document.getElementById("question").innerText =
-    `Complète ce verbe : ${v.translation}`;
+    `Complète ce verbe : ${currentVerb.translation}`;
   document.getElementById("base").value = "";
   document.getElementById("preterite").value = "";
   document.getElementById("participle").value = "";
@@ -50,13 +51,21 @@ async function submitAnswer() {
   });
 
   const result = await res.json();
+
+  console.log("Current verb:", currentVerb);
   console.log("Résultat reçu :", result);
 
   if (result.correct) {
     document.getElementById("feedback").innerText = "Bonne réponse !";
   } else {
+    const expectedPreterite = result.correctPreterite ?? currentVerb.preterite;
+    const expectedParticiple = result.correctParticiple ?? currentVerb.pastParticiple;
+
+    console.log("Expected Preterite:", expectedPreterite);
+    console.log("Expected Participle:", expectedParticiple);
+
     document.getElementById("feedback").innerText =
-      `Faux ! Réponse attendue : ${base} / ${result.correctPreterite} / ${result.correctParticiple}`;
+      `Faux ! Réponse attendue : ${currentVerb.base} / ${expectedPreterite} / ${expectedParticiple}`;
     score--;
   }
 
@@ -65,12 +74,48 @@ async function submitAnswer() {
     setTimeout(showQuestion, 3000);
   } else {
     setTimeout(() => {
-      document.getElementById("question").innerText = `Test terminé !`;
+      document.getElementById("question").innerText = "Test terminé !";
       document.getElementById("feedback").innerText = "";
       document.getElementById("score").innerText = `Note finale : ${score}/20`;
       document.querySelector("button#submitBtn").disabled = true;
       document.getElementById("replayBtn").style.display = "inline-block";
+      showCelebration(score);
     }, 1500);
+  }
+}
+
+function showFallingEmojis(emoji, count = 30) {
+  const container = document.getElementById('animation-container');
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.classList.add('falling');
+    el.textContent = emoji;
+    el.style.left = `${Math.random() * 100}vw`;
+    el.style.fontSize = `${Math.random() * 20 + 24}px`;
+    const duration = 2.5 + Math.random() * 1.5;
+    el.style.animationDuration = `${duration}s`;
+    el.style.animationDelay = `${Math.random() * 1.5}s`;
+    container.appendChild(el);
+    setTimeout(() => el.remove(), (duration + 1.5) * 1000);
+  }
+}
+
+function showCelebration(score) {
+  if (score >= 18) {
+    showFallingEmojis('💪');
+    showFallingEmojis('🎉');
+    showFallingEmojis('🥳');
+  } else if (score >= 14) {
+    showFallingEmojis('👍');
+    showFallingEmojis('🎊');
+    showFallingEmojis('😊');
+  } else if (score >= 10) {
+    showFallingEmojis('🙂');
+  } else {
+    showFallingEmojis('😅');
+    showFallingEmojis('😢');
+    showFallingEmojis('😞');
   }
 }
 
