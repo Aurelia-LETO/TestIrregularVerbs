@@ -1,6 +1,6 @@
 let verbs = [];
 let current = 0;
-let score = 20;
+let score = 10;
 let currentVerb = null;
 
 async function fetchVerbs() {
@@ -12,7 +12,7 @@ async function fetchVerbs() {
 
 function resetGame() {
   current = 0;
-  score = 20;
+  score = 10;
   document.getElementById("score").innerText = "";
   document.getElementById("feedback").innerText = "";
   document.getElementById("question").innerText = "";
@@ -71,7 +71,7 @@ async function submitAnswer() {
 
   current++;
   if (current < verbs.length) {
-    setTimeout(showQuestion, 2500);
+    setTimeout(showQuestion, 2800);
   } else {
     setTimeout(() => {
       document.getElementById("question").innerText = "Test terminé !";
