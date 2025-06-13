@@ -5,6 +5,7 @@ let score = 20;
 async function fetchVerbs() {
   const res = await fetch("/api/verbs");
   verbs = await res.json();
+  console.log("Verbs fetched:", verbs);
   resetGame();
 }
 
@@ -20,6 +21,10 @@ function resetGame() {
 }
 
 function showQuestion() {
+  if (!verbs.length || current >= verbs.length) {
+    document.getElementById("question").innerText = "Aucun verbe à afficher.";
+    return;
+  }
   const v = verbs[current];
   document.getElementById("question").innerText =
     `Complète ce verbe : ${v.translation}`;
@@ -45,18 +50,19 @@ async function submitAnswer() {
   });
 
   const result = await res.json();
+  console.log("Résultat reçu :", result);
 
   if (result.correct) {
     document.getElementById("feedback").innerText = "Bonne réponse !";
   } else {
     document.getElementById("feedback").innerText =
-      `Faux ! Réponse attendue : ${result.correctBase} / ${result.correctPreterite} / ${result.correctParticiple}`;
+      `Faux ! Réponse attendue : ${base} / ${result.correctPreterite} / ${result.correctParticiple}`;
     score--;
   }
 
   current++;
   if (current < verbs.length) {
-    setTimeout(showQuestion, 1500);
+    setTimeout(showQuestion, 3000);
   } else {
     setTimeout(() => {
       document.getElementById("question").innerText = `Test terminé !`;

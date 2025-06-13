@@ -21,13 +21,15 @@ app.get("/api/verbs", (req, res) => {
 
 app.post("/api/check", (req, res) => {
   const { base, answerPreterite, answerParticiple } = req.body;
-  const verb = verbs.find(v => v.base === base);
+  // Comparaison insensible à la casse pour la base
+  const verb = verbs.find(v => v.base.toLowerCase() === base.toLowerCase());
   if (!verb) return res.status(404).json({ correct: false });
 
   const correctPreterite = verb.preterite.toLowerCase();
   const correctParticiple = verb.pastParticiple.toLowerCase();
 
   const isCorrect =
+    verb.base.toLowerCase() === base.toLowerCase() &&
     answerPreterite.toLowerCase().trim() === correctPreterite &&
     answerParticiple.toLowerCase().trim() === correctParticiple;
 
