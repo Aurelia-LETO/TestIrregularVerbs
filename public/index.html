@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Révision des verbes irréguliers</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  
+  <div id="game">
+    <h1>Révision des verbes irréguliers</h1>
+    <div id="question"></div>
+
+    <label for="base" style="display:none;">Base verbale</label>
+    <input type="text" id="base" placeholder="Base verbale (ex: go)" autocomplete="off" />
+
+    <label for="preterite" style="display:none;">Prétérit</label>
+    <input type="text" id="preterite" placeholder="Prétérit (ex: went)" autocomplete="off" />
+
+    <label for="participle" style="display:none;">Participe passé</label>
+    <input type="text" id="participle" placeholder="Participe passé (ex: gone)" autocomplete="off" />
+
+    <button id="submitBtn" onclick="submitAnswer()">Valider</button>
+    <button id="replayBtn" style="display:none;" onclick="resetGame()">Rejouer</button>
+
+    <p id="feedback"></p>
+    <p id="score"></p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
