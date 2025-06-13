@@ -102,15 +102,15 @@ function showFallingEmojis(emoji, count = 30) {
 }
 
 function showCelebration(score) {
-  if (score >= 18) {
+  if (score >= 9) {
     showFallingEmojis('💪');
     showFallingEmojis('🎉');
     showFallingEmojis('🥳');
-  } else if (score >= 14) {
+  } else if (score >= 7) {
     showFallingEmojis('👍');
     showFallingEmojis('🎊');
     showFallingEmojis('😊');
-  } else if (score >= 10) {
+  } else if (score >= 5) {
     showFallingEmojis('🙂');
   } else {
     showFallingEmojis('😅');
