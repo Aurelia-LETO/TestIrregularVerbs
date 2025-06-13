@@ -1,33 +1,48 @@
+/* Styles généraux du body */
 body {
   font-family: sans-serif;
-  text-align: center;
-  margin: 18rem;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url('union.png');
   background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
+  background-position: center;
   background-repeat: no-repeat;
+  background-color: #f0f0f0;
+
+  /* Pour éviter les bugs iOS avec fixed */
+  background-attachment: scroll;
 }
 
+/* Conteneur principal du jeu */
 #game {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(244, 19, 3, 0.2);
-  display: inline-block;
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
 }
 
-/* Styles inputs */
+/* Champs de saisie */
 input {
-  margin: 0.5rem 0.8rem;
   padding: 0.6rem 1rem;
   font-size: 1rem;
   border: 2px solid #ddd;
   border-radius: 8px;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s, box-shadow 0.3s;
-  width: 200px;
-  max-width: 90vw;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:focus {
@@ -36,7 +51,7 @@ input:focus {
   box-shadow: 0 0 8px rgba(244, 19, 3, 0.7);
 }
 
-/* Styles boutons */
+/* Boutons */
 button {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
@@ -48,8 +63,7 @@ button {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(244, 19, 3, 0.4);
   transition: background 0.3s, box-shadow 0.3s, transform 0.15s;
-  margin-top: 1rem;
-  min-width: 120px;
+  width: 100%;
 }
 
 button:hover {
@@ -64,14 +78,37 @@ button:active {
   transform: translateY(0);
 }
 
+/* Feedback et score */
 #feedback {
-  margin-top: 1rem;
   font-weight: bold;
   color: #333;
+  text-align: center;
 }
 
 #score {
-  margin-top: 1rem;
   font-size: 1.2rem;
   color: #f41303;
+  text-align: center;
+}
+
+/* Responsive : petits écrans */
+@media (max-width: 480px) {
+  #game {
+    padding: 1.2rem;
+    gap: 0.8rem;
+  }
+
+  input,
+  button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  #score {
+    font-size: 1rem;
+  }
+
+  #feedback {
+    font-size: 0.95rem;
+  }
 }
