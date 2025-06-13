@@ -1,4 +1,4 @@
-/* Styles généraux du body */
+
 body {
   font-family: sans-serif;
   margin: 0;
@@ -13,11 +13,10 @@ body {
   background-repeat: no-repeat;
   background-color: #f0f0f0;
 
-  /* Pour éviter les bugs iOS avec fixed */
+  
   background-attachment: scroll;
 }
 
-/* Conteneur principal du jeu */
 #game {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 2rem;
@@ -33,7 +32,7 @@ body {
   gap: 1rem;
 }
 
-/* Champs de saisie */
+
 input {
   padding: 0.6rem 1rem;
   font-size: 1rem;
@@ -51,7 +50,6 @@ input:focus {
   box-shadow: 0 0 8px rgba(244, 19, 3, 0.7);
 }
 
-/* Boutons */
 button {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
@@ -78,7 +76,7 @@ button:active {
   transform: translateY(0);
 }
 
-/* Feedback et score */
+
 #feedback {
   font-weight: bold;
   color: #333;
@@ -91,7 +89,7 @@ button:active {
   text-align: center;
 }
 
-/* Responsive : petits écrans */
+
 @media (max-width: 480px) {
   #game {
     padding: 1.2rem;
