@@ -71,7 +71,7 @@ async function submitAnswer() {
 
   current++;
   if (current < verbs.length) {
-    setTimeout(showQuestion, 3000);
+    setTimeout(showQuestion, 2500);
   } else {
     setTimeout(() => {
       document.getElementById("question").innerText = "Test terminé !";
