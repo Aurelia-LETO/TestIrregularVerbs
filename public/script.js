@@ -66,7 +66,7 @@ async function submitAnswer() {
 
     document.getElementById("feedback").innerText =
       `Faux ! Réponse attendue : ${currentVerb.base} / ${expectedPreterite} / ${expectedParticiple}`;
-    score--;
+    if (score > 0) score--;
   }
 
   current++;
@@ -76,7 +76,7 @@ async function submitAnswer() {
     setTimeout(() => {
       document.getElementById("question").innerText = "Test terminé !";
       document.getElementById("feedback").innerText = "";
-      document.getElementById("score").innerText = `Note finale : ${score}/20`;
+      document.getElementById("score").innerText = `Note finale : ${score}/10`;
       document.querySelector("button#submitBtn").disabled = true;
       document.getElementById("replayBtn").style.display = "inline-block";
       showCelebration(score);

@@ -9,19 +9,34 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 const verbs = JSON.parse(fs.readFileSync("./verbs.json"));
+const playedBases = new Set(); 
 
 function getRandomVerbs(count) {
-  const shuffled = verbs.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
+  // Verbes disponibles
+  const available = verbs.filter(v => !playedBases.has(v.base));
+
+  if (available.length < count) {
+    //réinitialisation de la mémoire
+    playedBases.clear();
+    return getRandomVerbs(count);
+  }
+
+  const shuffled = [...available].sort(() => 0.5 - Math.random());
+  const selected = shuffled.slice(0, count);
+
+  selected.forEach(v => playedBases.add(v.base)); 
+
+  return selected;
 }
 
 app.get("/api/verbs", (req, res) => {
-  res.json(getRandomVerbs(20));
+  const randomVerbs = getRandomVerbs(10);
+  res.json(randomVerbs);
 });
 
 app.post("/api/check", (req, res) => {
   const { base, answerPreterite, answerParticiple } = req.body;
-  // Comparaison insensible à la casse pour la base
+
   const verb = verbs.find(v => v.base.toLowerCase() === base.toLowerCase());
   if (!verb) return res.status(404).json({ correct: false });
 
