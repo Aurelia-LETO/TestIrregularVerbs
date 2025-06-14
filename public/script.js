@@ -40,6 +40,15 @@ async function submitAnswer() {
   const preterite = document.getElementById("preterite").value.trim();
   const participle = document.getElementById("participle").value.trim();
 
+  if (!base || !preterite || !participle) {
+    document.getElementById("feedback").innerText = "Veuillez remplir tous les champs.";
+    document.getElementById("feedback").style.color = "red";
+    return;
+  }
+
+  // Remise à zéro du style   
+  document.getElementById("feedback").style.color = "";
+
   const res = await fetch("/api/check", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
