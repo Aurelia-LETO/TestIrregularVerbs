@@ -38,7 +38,7 @@ app.post("/api/check", (req, res) => {
   const { base, answerPreterite, answerParticiple } = req.body;
 
   const verb = verbs.find(v => v.base.toLowerCase() === base.toLowerCase());
-  if (!verb) return res.status(404).json({ correct: false });
+  if (!verb) return res.json({ correct: false, message: "Verbe non trouvé" });
 
   const correctPreterite = verb.preterite.toLowerCase();
   const correctParticiple = verb.pastParticiple.toLowerCase();
